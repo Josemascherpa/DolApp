@@ -1,0 +1,78 @@
+
+import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useCallback, useContext } from 'react';
+import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { darkColors, globalStyles, lightColors } from '../themes/theme';
+import { ActivityIndicator, Button, Text } from 'react-native-paper';
+import { ThemeContext } from '../context/ThemeContext';
+import { getDolars } from '../actions/get-dolars';
+import { useQueries, useQuery } from '@tanstack/react-query';
+import { FlatList } from 'react-native-gesture-handler';
+import { DolarCard } from '../components/DolarCard';
+
+
+export const HomeScreen = () => {
+
+  const { isLoading, data } = useQuery( {
+    queryKey: [ 'dolares' ],
+    queryFn: () => getDolars(),
+    staleTime: 1000 * 60 * 60, // cierto tiempo para mantener en cache y volver a hacer la peticion
+  } );
+
+
+  const navigation = useNavigation();
+  const { top } = useSafeAreaInsets();
+  const { isDark } = useContext( ThemeContext );
+
+
+
+  useFocusEffect(
+    useCallback( () => {
+      navigation.setOptions( {
+        headerLeft: () => (
+          <Button
+            style={ { padding: 5 } }
+            onPress={ () => navigation.dispatch( DrawerActions.openDrawer ) }
+            textColor={ isDark ? darkColors.text : lightColors.text }
+          >
+            Menu
+            {/* Icono */ }
+          </Button>
+
+        ),
+      } );
+    }, [ isDark, navigation ] )
+  );
+
+
+
+  return (
+
+    <View style={ [ globalStyles.containerView, { marginTop: top } ] }>
+
+      {
+        
+        isLoading
+          ?
+          <ActivityIndicator />
+          :
+          
+          <FlatList
+            data={data}
+            style={{marginTop:10}}
+            keyExtractor={(item)=> item.nombre}            
+            numColumns={1}
+            renderItem={({item:dolar})=>(
+              <DolarCard dolar={dolar}/>
+            )}
+          
+          />
+      }
+
+
+      {/* <DolarCard
+      /> */}
+    </View>
+  );
+};
