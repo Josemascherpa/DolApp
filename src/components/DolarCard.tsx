@@ -8,6 +8,7 @@ import { Card, Text } from 'react-native-paper';
 import { capitalizeFirstLetter } from '../config/helpers/caseHelper';
 import { ViewSeparator } from './ViewSeparator';
 import { formatterDate } from '../config/helpers/dateHelper';
+import { countLetters } from '../config/helpers/countLettersHelper';
 
 interface Props {
   dolar: Dolar;
@@ -16,6 +17,7 @@ export const DolarCard = ( { dolar }: Props ) => {
 
   const { isDark } = useContext( ThemeContext );
   const date: string = formatterDate( dolar.fechaActualizacion );
+  
   return (
     <Card style={ [ styles.cardContainer, { backgroundColor: isDark ? darkColors.containers : lightColors.containers } ] }>
 
@@ -23,13 +25,13 @@ export const DolarCard = ( { dolar }: Props ) => {
 
       <ViewSeparator backgroundBoolean stringLeft={ "Venta" } stringRight={ "Compra" } />
 
-      <ViewSeparator backgroundBoolean={ false } stringLeft={ `$${ /*dolar.venta.toFixed(2).toString()*/ }` } stringRight={ `$${ /*dolar.compra.toFixed(2).toString()*/ }` } />
+      <ViewSeparator backgroundBoolean={ false } stringLeft={ `$2226.666` } stringRight={ `$222666` } />
 
       <Text style={ [ styles.textDate, { color: isDark ? darkColors.text : lightColors.text, padding: 3 } ] }>{ `${ date }` }</Text>
     </Card>
   );
 };
-
+//${ dolar.venta.toFixed(2).toString() } ${ dolar.compra.toFixed(2).toString() }
 const styles = StyleSheet.create( {
   cardContainer: {
     marginHorizontal: 10,
