@@ -10,6 +10,7 @@ import { getDolars } from '../actions/get-dolars';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import { FlatList } from 'react-native-gesture-handler';
 import { DolarCard } from '../components/DolarCard';
+import { ViewSeparator } from '../components/ViewSeparator';
 
 
 export const HomeScreen = () => {
@@ -18,13 +19,12 @@ export const HomeScreen = () => {
     queryKey: [ 'dolares' ],
     queryFn: () => getDolars(),
     staleTime: 1000 * 60 * 60, // cierto tiempo para mantener en cache y volver a hacer la peticion
+    refetchInterval: 1000 * 60 * 60,
   } );
-
 
   const navigation = useNavigation();
   const { top } = useSafeAreaInsets();
   const { isDark } = useContext( ThemeContext );
-
 
 
   useFocusEffect(
@@ -52,27 +52,34 @@ export const HomeScreen = () => {
     <View style={ [ globalStyles.containerView, { marginTop: top } ] }>
 
       {
-        
+
         isLoading
           ?
           <ActivityIndicator />
           :
-          
-          <FlatList
-            data={data}
-            style={{marginTop:10}}
-            keyExtractor={(item)=> item.nombre}            
-            numColumns={1}
-            renderItem={({item:dolar})=>(
-              <DolarCard dolar={dolar}/>
-            )}
-          
-          />
+          <>
+            <FlatList
+              data={ data }
+              style={ { marginTop: 10, borderRadius: 10 } }
+              keyExtractor={ ( item ) => item.nombre }
+              numColumns={ 1 }
+              renderItem={ ( { item: dolar } ) => (
+                <DolarCard dolar={ dolar } />
+
+
+              ) }
+            />
+            <View style={ { alignItems: "center", paddingTop: 2, flexDirection: "row", justifyContent: "center" } }>
+              <Text>
+                Datos obtenidos de{ " " }
+                <Text style={ { fontWeight: 'bold' } }>DolarApi.com</Text>
+              </Text>
+            </View>
+
+          </>
+
       }
 
-
-      {/* <DolarCard
-      /> */}
-    </View>
+    </View >
   );
 };

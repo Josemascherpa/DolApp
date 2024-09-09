@@ -1,6 +1,3 @@
-
-
-
 export const capitalizeFirstLetter = (palabra:string) => {
   if ( typeof palabra !== 'string' || palabra.length === 0 ) {
     return palabra;

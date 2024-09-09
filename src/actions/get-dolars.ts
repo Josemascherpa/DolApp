@@ -8,10 +8,10 @@ import { Dolar } from '../domain/dolar';
 export const getDolars = async (): Promise<Dolar[]> => {
   try {
     // await sleep();
-
+    
     const url = "/dolares";
     const { data } = await dolarApi.get( url ); 
-
+    
     return data;
 
   } catch ( error ) {

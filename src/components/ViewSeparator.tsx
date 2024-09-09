@@ -1,70 +1,77 @@
-
-import { useContext } from 'react';
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, useColorScheme } from 'react-native';
 import { ThemeContext } from '../context/ThemeContext';
-import { darkColors, lightColors } from '../themes/theme';
-import { countLetters } from '../config/helpers/countLettersHelper';
+import { darkColors, lightColors, ThemeColors } from '../themes/theme';
+import { MD3LightTheme } from 'react-native-paper';
 
-interface Props {
-  stringLeft: string;
-  stringRight: string;
-  backgroundBoolean: boolean;
-  styleMod?: StyleProp<ViewStyle>;
+interface DolarInfoGridProps {
+  venta: string;
+  compra: string;
 }
 
-export const ViewSeparator = ( { stringLeft, stringRight, backgroundBoolean, styleMod }: Props ) => {
+export const ViewSeparator = ( { venta, compra }: DolarInfoGridProps ) => {
   const { isDark } = useContext( ThemeContext );
-
-  const getTextStyle = ( text: string ) => {
-    const letters: number = countLetters( text );
-
-    switch ( true ) {  // Evaluamos condiciones booleanas
-      case letters > 8:
-        return styles.textLong;
-      case letters > 6:
-        return styles.textMedium;
-      default:
-        return styles.textShort;
-    }
-  };
-
-
+  
   return (
-    <View style={ [
-      styles.viewSeparator,
-      backgroundBoolean
-        ? { backgroundColor: isDark ? darkColors.separator : lightColors.separator }
-        : { backgroundColor: 'transparent' }
-    ] }>
-      <Text style={ [
-        getTextStyle(stringLeft) ,
-        { color: isDark ? darkColors.text : lightColors.text } ] }>{ stringLeft }
-      </Text>
-      <Text style={ [
-        getTextStyle(stringRight) 
-        , { color: isDark ? darkColors.text : lightColors.text } ] }>{ stringRight }
-      </Text>
+    <View style={ styles.container }>
+      {/* fila strings */}
+      <View style={
+        [ styles.row, {
+          backgroundColor: isDark ? darkColors.background : lightColors.background,
+        }
+        ] }>
+        <Text style={ [ styles.label, { paddingRight: 50, color: isDark ? darkColors.text : lightColors.text } ] }>
+          Venta
+        </Text>
+        <Text style={ [ styles.label, { paddingLeft: 50, color: isDark ? darkColors.text : lightColors.text } ] }>
+          Compra
+        </Text>
+      </View>
+
+{/* fila valores */}
+      <View style={ styles.row }>
+        <View style={ styles.valueContainer }>
+          <Text style={ [ styles.value, { paddingRight: 45, color: isDark ? darkColors.text : lightColors.text } ] }>
+            { `$${ venta }` }
+          </Text>
+        </View>
+
+        <View style={ styles.valueContainer }>
+          <Text style={[ styles.value, {paddingLeft: 50, color: isDark ? darkColors.text : lightColors.text}]}>
+            { `$${ compra }` }
+          </Text>
+        </View>
+
+      </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create( {
-  viewSeparator: {
-    backgroundColor: "red",
-    borderRadius: 5,
+  container: {
+    width: '100%',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     width: "100%",
-    height: 28,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    marginBottom: 5, // Añade un pequeño espacio entre las filas
+    borderRadius: 5,
   },
-  textShort: {
-    paddingLeft:10
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    flex: 1,
+    textAlign: 'center',
   },
-  textMedium: {
-
+  valueContainer: {
+    flex: 1,
+    alignItems: 'center',
   },
-  textLong: {
-
-  }
-
+  value: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 } );

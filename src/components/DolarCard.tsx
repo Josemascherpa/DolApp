@@ -1,60 +1,62 @@
-
+import React, { useContext } from 'react';
 import { StyleSheet } from 'react-native';
-import { Dolar } from '../domain/dolar';
-import { useContext } from 'react';
+import { Card, Text } from 'react-native-paper';
 import { ThemeContext } from '../context/ThemeContext';
 import { darkColors, lightColors } from '../themes/theme';
-import { Card, Text } from 'react-native-paper';
 import { capitalizeFirstLetter } from '../config/helpers/caseHelper';
-import { ViewSeparator } from './ViewSeparator';
 import { formatterDate } from '../config/helpers/dateHelper';
-import { countLetters } from '../config/helpers/countLettersHelper';
+
+import { Dolar } from '../domain/dolar';
+import { ViewSeparator } from './ViewSeparator';
 
 interface Props {
   dolar: Dolar;
 }
-export const DolarCard = ( { dolar }: Props ) => {
 
-  const { isDark } = useContext( ThemeContext );
-  const date: string = formatterDate( dolar.fechaActualizacion );
+export const DolarCard = ({ dolar }: Props) => {
+  {
+    dolar.casa==="contadoconliqui"?dolar.casa="CCL":"Contado con Liqui"
+  }
+  const { isDark } = useContext(ThemeContext);
+  const date: string = formatterDate(dolar.fechaActualizacion);
   
   return (
-    <Card style={ [ styles.cardContainer, { backgroundColor: isDark ? darkColors.containers : lightColors.containers } ] }>
+    <Card style={[styles.cardContainer, { backgroundColor: isDark ? darkColors.containers : lightColors.containers }]}>
+      <Text style={[styles.title, { color: isDark ? darkColors.text : lightColors.text }]}>
+        {`Dolar ${capitalizeFirstLetter(dolar.casa)}`}
+      </Text>
 
-      <Text style={ [ styles.textCenter, { color: isDark ? darkColors.text : lightColors.text, padding: 3 } ] }>{ `Dolar ${ capitalizeFirstLetter( dolar.casa ) }` }</Text>
+      <ViewSeparator 
+        venta={dolar.venta.toFixed(2)}
+        compra={dolar.compra.toFixed(2)}
+      />
 
-      <ViewSeparator backgroundBoolean stringLeft={ "Venta" } stringRight={ "Compra" } />
-
-      <ViewSeparator backgroundBoolean={ false } stringLeft={ `$2226.666` } stringRight={ `$222666` } />
-
-      <Text style={ [ styles.textDate, { color: isDark ? darkColors.text : lightColors.text, padding: 3 } ] }>{ `${ date }` }</Text>
+      <Text style={[styles.date, { color: isDark ? darkColors.text : lightColors.text }]}>
+        {date}
+      </Text>
     </Card>
   );
 };
-//${ dolar.venta.toFixed(2).toString() } ${ dolar.compra.toFixed(2).toString() }
-const styles = StyleSheet.create( {
+
+const styles = StyleSheet.create({
   cardContainer: {
     marginHorizontal: 10,
-    flex: 0.15,
     marginBottom: 15,
     borderRadius: 10,
     shadowColor: '#000000',
-    padding: 5, // Aumenta el padding para mayor tamaño
-    width: '100%', // Ajusta el ancho según sea necesario
-    alignSelf: 'center', // Centra el card en el contenedor
-    height: 120,
+    padding: 10,
+    width: '100%',
+    alignSelf: 'center',
   },
-  textCenter: {
-    padding: 3,
-    alignContent: "center",
-    justifyContent: "center",
+  title: {
     textAlign: "center",
     fontWeight: "bold",
+    fontSize: 16,
+    marginBottom: 10,
   },
-  textDate: {
-    padding: 3,
-    alignContent: "center",
-    justifyContent: "center",
+  date: {
     textAlign: "center",
+    fontSize: 12,
+    marginTop: 10,
   },
-} );
+});
