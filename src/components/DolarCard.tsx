@@ -23,7 +23,7 @@ export const DolarCard = ({ dolar }: Props) => {
   return (
     <Card style={[styles.cardContainer, { backgroundColor: isDark ? darkColors.containers : lightColors.containers }]}>
       <Text style={[styles.title, { color: isDark ? darkColors.text : lightColors.text }]}>
-        {`Dolar ${capitalizeFirstLetter(dolar.casa)}`}
+        {`Dolar ${dolar.casa==="CCL"?"CCL":capitalizeFirstLetter(dolar.casa)}`}
       </Text>
 
       <ViewSeparator 

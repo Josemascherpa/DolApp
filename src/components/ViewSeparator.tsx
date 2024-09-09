@@ -60,8 +60,8 @@ const styles = StyleSheet.create( {
     borderRadius: 5,
   },
   label: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 14,
+    // fontWeight: 'bold',
     flex: 1,
     textAlign: 'center',
   },
