@@ -1,10 +1,11 @@
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { HomeScreen } from '../screens/HomeScreen';
-import { HistoryScreen } from '../screens/HistoryScreen';
 import { Text } from 'react-native-paper';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { darkColors, lightColors } from '../themes/theme';
+import { StackNavigators } from './StackNavigators';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -39,10 +40,8 @@ export const DrawerNavigators = () => {
           }      
         }
       }>
-      <Drawer.Screen name="DolApp" component={ HomeScreen } />
-      <Drawer.Screen name="Historial Dolar" component={ HistoryScreen } />
-
-
+      <Drawer.Screen name="DolApp" component={ HomeScreen } />      
+      <Drawer.Screen name="StackNavigators" component={ StackNavigators } options={{headerShown:false,drawerItemStyle:{display:"none"}}}/>
     </Drawer.Navigator>
   );
 };

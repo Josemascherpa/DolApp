@@ -1,40 +1,54 @@
 import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 import { ThemeContext } from '../context/ThemeContext';
 import { darkColors, lightColors } from '../themes/theme';
 import { capitalizeFirstLetter } from '../config/helpers/caseHelper';
 import { formatterDate } from '../config/helpers/dateHelper';
-
 import { Dolar } from '../domain/dolar';
 import { ViewSeparator } from './ViewSeparator';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { StackParamList } from '../navigators/StackNavigators';  // Importa el tipo de parámetros del stack
 
 interface Props {
   dolar: Dolar;
 }
 
 export const DolarCard = ({ dolar }: Props) => {
-  {
-    dolar.casa==="contadoconliqui"?dolar.casa="CCL":"Contado con Liqui"
-  }
   const { isDark } = useContext(ThemeContext);
+
   const date: string = formatterDate(dolar.fechaActualizacion);
-  
+
+  const navigation = useNavigation<NavigationProp<StackParamList>>();
+
   return (
-    <Card style={[styles.cardContainer, { backgroundColor: isDark ? darkColors.containers : lightColors.containers }]}>
-      <Text style={[styles.title, { color: isDark ? darkColors.text : lightColors.text }]}>
-        {`Dolar ${dolar.casa==="CCL"?"CCL":capitalizeFirstLetter(dolar.casa)}`}
-      </Text>
+    <>
+      <Pressable onPress={() => {
+        navigation.navigate('StackNavigators', {
+          screen: 'DolarScreen',                 
+          params: {
+            casaDolar: dolar.casa,
+            ventaDolar: dolar.venta.toFixed(2),
+            compraDolar: dolar.compra.toFixed(2),
+          }
+        });
+      }}>
+        <Card style={[styles.cardContainer, { backgroundColor: isDark ? darkColors.containers : lightColors.containers }]}>
+          <Text style={[styles.title, { color: isDark ? darkColors.text : lightColors.text }]}>
+            {`Dolar ${dolar.casa === "CCL" ? "CCL" : capitalizeFirstLetter(dolar.casa)}`}
+          </Text>
 
-      <ViewSeparator 
-        venta={dolar.venta.toFixed(2)}
-        compra={dolar.compra.toFixed(2)}
-      />
+          <ViewSeparator
+            venta={dolar.venta.toFixed(2)}
+            compra={dolar.compra.toFixed(2)}
+          />
 
-      <Text style={[styles.date, { color: isDark ? darkColors.text : lightColors.text }]}>
-        {date}
-      </Text>
-    </Card>
+          <Text style={[styles.date, { color: isDark ? darkColors.text : lightColors.text }]}>
+            {date}
+          </Text>
+        </Card>
+      </Pressable>
+    </>
   );
 };
 

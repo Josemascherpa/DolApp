@@ -7,10 +7,11 @@ import { darkColors, globalStyles, lightColors } from '../themes/theme';
 import { ActivityIndicator, Button, Text } from 'react-native-paper';
 import { ThemeContext } from '../context/ThemeContext';
 import { getDolars } from '../actions/get-dolars';
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { FlatList } from 'react-native-gesture-handler';
 import { DolarCard } from '../components/DolarCard';
-import { ViewSeparator } from '../components/ViewSeparator';
+import { IonIcon } from '../components/IonIcon';
+
 
 
 export const HomeScreen = () => {
@@ -32,12 +33,11 @@ export const HomeScreen = () => {
       navigation.setOptions( {
         headerLeft: () => (
           <Button
-            style={ { padding: 5 } }
+            style={ { padding: 5, backgroundColor: 'transparent', paddingTop: 12 } }
             onPress={ () => navigation.dispatch( DrawerActions.openDrawer ) }
             textColor={ isDark ? darkColors.text : lightColors.text }
           >
-            Menu
-            {/* Icono */ }
+            <IonIcon name={ "menu-outline" } size={ 25 } />
           </Button>
 
         ),
@@ -65,8 +65,6 @@ export const HomeScreen = () => {
               numColumns={ 1 }
               renderItem={ ( { item: dolar } ) => (
                 <DolarCard dolar={ dolar } />
-
-
               ) }
             />
             <View style={ { alignItems: "center", paddingTop: 2, flexDirection: "row", justifyContent: "center" } }>
