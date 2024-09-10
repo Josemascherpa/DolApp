@@ -1,7 +1,7 @@
 
 import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native';
-import { useCallback, useContext } from 'react';
-import { View } from 'react-native';
+import { useCallback, useContext, useRef } from 'react';
+import { TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { darkColors, globalStyles, lightColors } from '../themes/theme';
 import { ActivityIndicator, Button, Text } from 'react-native-paper';
@@ -16,11 +16,11 @@ import { IonIcon } from '../components/IonIcon';
 
 export const HomeScreen = () => {
 
-  const { isLoading, data } = useQuery( {
+  const { isLoading, data, refetch } = useQuery( {
     queryKey: [ 'dolares' ],
     queryFn: () => getDolars(),
-    staleTime: 1000 * 60 * 60, // cierto tiempo para mantener en cache y volver a hacer la peticion
-    refetchInterval: 1000 * 60 * 60,
+    staleTime: 1000 * 60 * 15, // cierto tiempo para mantener en cache y volver a hacer la peticion
+    refetchInterval: 1000 * 60 * 15,
   } );
 
   const navigation = useNavigation();
@@ -32,14 +32,29 @@ export const HomeScreen = () => {
     useCallback( () => {
       navigation.setOptions( {
         headerLeft: () => (
-          <Button
-            style={ { padding: 5, backgroundColor: 'transparent', paddingTop: 12 } }
+
+          <Button 
+          
+            style={ { paddingTop: 8} }
             onPress={ () => navigation.dispatch( DrawerActions.openDrawer ) }
-            textColor={ isDark ? darkColors.text : lightColors.text }
+            textColor={ isDark ? darkColors.text : lightColors.text }            
           >
             <IonIcon name={ "menu-outline" } size={ 25 } />
           </Button>
 
+
+
+        ),
+        headerRight: () => (
+
+          <Button
+
+            style={ { backgroundColor: 'transparent', paddingTop: 8 } } // Cambié backgroundColor a 'transparent'
+            onPress={ () => refetch() }
+            textColor="black"
+          >
+            <IonIcon name={ "refresh-outline" } size={ 27 } />
+          </Button>
         ),
       } );
     }, [ isDark, navigation ] )

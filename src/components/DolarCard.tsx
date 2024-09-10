@@ -16,7 +16,7 @@ interface Props {
 
 export const DolarCard = ({ dolar }: Props) => {
   const { isDark } = useContext(ThemeContext);
-
+  
   const date: string = formatterDate(dolar.fechaActualizacion);
 
   const navigation = useNavigation<NavigationProp<StackParamList>>();

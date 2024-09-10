@@ -28,25 +28,25 @@ export const DolarScreen = ( { route }: DolarScreenProps ) => {
     navigation.setOptions( {
       headerLeft: () => (
         <Button
-          style={ { padding: 5, backgroundColor: 'transparent',paddingTop:12 } } // Cambié backgroundColor a 'transparent'
+          style={ { backgroundColor: 'transparent', paddingTop: 8 } } // Cambié backgroundColor a 'transparent'
           onPress={ () => navigation.goBack() }
           textColor="black"
         >
-          <IonIcon name={ "arrow-back-outline" } size={ 27 } />
-          
+          <IonIcon name={ "arrow-back-outline" } size={ 27 }  />
+
         </Button>
       ),
-      headerTitle: (`Dolar ${capitalizeFirstLetter(casaDolar)}`),
-      
+      headerTitle: ( `Dolar ${ capitalizeFirstLetter( casaDolar ) }` ),
     } );
   }, [ navigation, casaDolar ] );
+
   return (
 
     <View style={ [ globalStyles.containerView, {} ] }>
       <Text>Casa Dolar: { casaDolar }</Text>
       <Text>Venta Dolar: { ventaDolar }</Text>
       <Text>Compra Dolar: { compraDolar }</Text>
-      <GraphDolar/>
+      <GraphDolar />
     </View>
   );
 };

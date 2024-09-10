@@ -1,5 +1,5 @@
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { LineChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
