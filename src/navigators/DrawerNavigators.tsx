@@ -40,7 +40,7 @@ export const DrawerNavigators = () => {
           }      
         }
       }>
-      <Drawer.Screen name="DolApp" component={ HomeScreen } />      
+      <Drawer.Screen name="DolApp" component={ HomeScreen } />
       <Drawer.Screen name="StackNavigators" component={ StackNavigators } options={{headerShown:false,drawerItemStyle:{display:"none"}}}/>
     </Drawer.Navigator>
   );

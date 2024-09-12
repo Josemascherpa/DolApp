@@ -14,37 +14,37 @@ interface Props {
   dolar: Dolar;
 }
 
-export const DolarCard = ({ dolar }: Props) => {
-  const { isDark } = useContext(ThemeContext);
-  
-  const date: string = formatterDate(dolar.fechaActualizacion);
+export const DolarCard = ( { dolar }: Props ) => {
+  const { isDark } = useContext( ThemeContext );
+
+  const date: string = formatterDate( dolar.fechaActualizacion );
 
   const navigation = useNavigation<NavigationProp<StackParamList>>();
 
   return (
     <>
-      <Pressable onPress={() => {
-        navigation.navigate('StackNavigators', {
-          screen: 'DolarScreen',                 
+      <Pressable onPress={ () => {
+        navigation.navigate( 'StackNavigators', {
+          screen: 'DolarScreen',
           params: {
             casaDolar: dolar.casa,
-            ventaDolar: dolar.venta.toFixed(2),
-            compraDolar: dolar.compra.toFixed(2),
+            ventaDolar: dolar.venta.toFixed( 2 ),
+            compraDolar: dolar.compra.toFixed( 2 ),
           }
-        });
-      }}>
-        <Card style={[styles.cardContainer, { backgroundColor: isDark ? darkColors.containers : lightColors.containers }]}>
-          <Text style={[styles.title, { color: isDark ? darkColors.text : lightColors.text }]}>
-            {`Dolar ${dolar.casa === "CCL" ? "CCL" : capitalizeFirstLetter(dolar.casa)}`}
+        } );
+      } }>
+        <Card style={ [ styles.cardContainer, { backgroundColor: isDark ? darkColors.containers : lightColors.containers } ] }>
+          <Text style={ [ styles.title, { color: isDark ? darkColors.text : lightColors.text } ] }>
+            { `Dolar ${ dolar.casa === "CCL" ? "CCL" : capitalizeFirstLetter( dolar.casa ) }` }
           </Text>
 
           <ViewSeparator
-            venta={dolar.venta.toFixed(2)}
-            compra={dolar.compra.toFixed(2)}
+            venta={ dolar.venta.toFixed( 2 ) }
+            compra={ dolar.compra.toFixed( 2 ) }
           />
 
-          <Text style={[styles.date, { color: isDark ? darkColors.text : lightColors.text }]}>
-            {date}
+          <Text style={ [ styles.date, { color: isDark ? darkColors.text : lightColors.text } ] }>
+            { date }
           </Text>
         </Card>
       </Pressable>
@@ -52,7 +52,7 @@ export const DolarCard = ({ dolar }: Props) => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create( {
   cardContainer: {
     marginHorizontal: 10,
     marginBottom: 15,
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 10,
   },
-});
+} );

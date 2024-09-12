@@ -1,7 +1,7 @@
 
 import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native';
-import { useCallback, useContext, useRef } from 'react';
-import { TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { useCallback, useContext, } from 'react';
+import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { darkColors, globalStyles, lightColors } from '../themes/theme';
 import { ActivityIndicator, Button, Text } from 'react-native-paper';
@@ -13,14 +13,13 @@ import { DolarCard } from '../components/DolarCard';
 import { IonIcon } from '../components/IonIcon';
 
 
-
 export const HomeScreen = () => {
 
   const { isLoading, data, refetch } = useQuery( {
     queryKey: [ 'dolares' ],
     queryFn: () => getDolars(),
-    staleTime: 1000 * 60 * 15, // cierto tiempo para mantener en cache y volver a hacer la peticion
-    refetchInterval: 1000 * 60 * 15,
+    staleTime: 1000 * 60 * 15, // cierto tiempo para mantener en cache 
+    refetchInterval: 1000 * 60 * 15,//y volver a hacer la peticion
   } );
 
   const navigation = useNavigation();
@@ -32,23 +31,16 @@ export const HomeScreen = () => {
     useCallback( () => {
       navigation.setOptions( {
         headerLeft: () => (
-
-          <Button 
-          
-            style={ { paddingTop: 8} }
+          <Button
+            style={ { paddingTop: 8 } }
             onPress={ () => navigation.dispatch( DrawerActions.openDrawer ) }
-            textColor={ isDark ? darkColors.text : lightColors.text }            
+            textColor={ isDark ? darkColors.text : lightColors.text }
           >
             <IonIcon name={ "menu-outline" } size={ 25 } />
           </Button>
-
-
-
         ),
         headerRight: () => (
-
           <Button
-
             style={ { backgroundColor: 'transparent', paddingTop: 8 } } // Cambié backgroundColor a 'transparent'
             onPress={ () => refetch() }
             textColor="black"
@@ -63,11 +55,8 @@ export const HomeScreen = () => {
 
 
   return (
-
     <View style={ [ globalStyles.containerView, { marginTop: top } ] }>
-
       {
-
         isLoading
           ?
           <ActivityIndicator />
@@ -88,11 +77,8 @@ export const HomeScreen = () => {
                 <Text style={ { fontWeight: 'bold' } }>DolarApi.com</Text>
               </Text>
             </View>
-
           </>
-
       }
-
     </View >
   );
 };
