@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect, } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Button, Text, } from 'react-native-paper';
 import { globalStyles } from '../themes/theme';
 import { capitalizeFirstLetter } from '../config/helpers/caseHelper';
@@ -8,7 +8,8 @@ import { IonIcon } from '../components/IonIcon';
 import { GraphDolar } from '../components/GraphDolar';
 import { getDolarsGraphs } from '../actions/get-dolarsGraphs';
 import { useQuery } from '@tanstack/react-query';
-import { FlatList } from 'react-native-gesture-handler';
+import { reduceGraphHelper } from '../config/helpers/reduceGraphHelper';
+
 
 type DolarScreenProps = {
   route: {
@@ -23,15 +24,19 @@ type DolarScreenProps = {
 export const DolarScreen = ( { route }: DolarScreenProps ) => {
 
   const { casaDolar, ventaDolar, compraDolar } = route.params;
+  
 
   const navigation = useNavigation();
 
   const { isLoading, data } = useQuery( {
-    queryKey: [ `dolarGraph${casaDolar}` ],
+    queryKey: [ `dolarGraph${ casaDolar }` ],
     queryFn: () => getDolarsGraphs( { nombreDolar: casaDolar.toLocaleLowerCase() } ),
     staleTime: 1000 * 60 * 15, // cierto tiempo para mantener en cache 
     refetchInterval: 1000 * 60 * 15,//y volver a hacer la peticion
   } );
+
+
+  
 
   useLayoutEffect( () => {
     navigation.setOptions( {
@@ -51,25 +56,26 @@ export const DolarScreen = ( { route }: DolarScreenProps ) => {
 
   return (
 
-    <View style={ [ globalStyles.containerView, {} ] }>
-      <Text>Casa Dolar: { casaDolar }</Text>
-      <Text>Venta Dolar: { ventaDolar }</Text>
-      <Text>Compra Dolar: { compraDolar }</Text>
+    <View style={ [ globalStyles.containerView, {} ] }>      
       {
         isLoading ?
           <ActivityIndicator /> :
-          <FlatList
-            data={ data }
-            style={ { marginTop: 10, borderRadius: 10 } }
-            keyExtractor={ ( item ) => item.casa + item.fecha }
-            numColumns={ 1 }
-            renderItem={ ( { item: dolar } ) => (
-              <Text>{ dolar.casa }</Text>
-            ) }
-          />
+          <>
+            {/* <DolarCard dolar={}/> */}
+            <Text style={styles.textSeparator}> Historial Dolar </Text>
+            { data && <GraphDolar data={ reduceGraphHelper({data}) } /> }
+          </>
 
       }
-      <GraphDolar />
+
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  textSeparator:{
+    fontWeight:"bold",
+    fontSize:20,
+    alignSelf:"center"
+  }
+})

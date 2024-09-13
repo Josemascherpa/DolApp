@@ -30,7 +30,8 @@ export const globalStyles = StyleSheet.create( {
   },
   textSecondary:{
     fontSize:16,
-  }
+  },
+  
 } );
 
 export const lightColors:ThemeColors={
