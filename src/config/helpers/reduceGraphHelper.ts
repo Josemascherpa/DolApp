@@ -12,24 +12,28 @@ interface DataGraph {
   }[];
 }
 
-export const reduceGraphHelper = ( { data, fechaMin = new Date( '2021-01-01' ) }: Props ): DataGraph => {
-  const minDate = new Date( fechaMin ); //filtro fecha
-
+export const reduceGraphHelper = ({ data, fechaMin = new Date('2021-01-01') }: Props): DataGraph => {
+  // filtr los datos según la fecha mínima
   const filteredData = data
-    ? data.filter( ( dolar ) => new Date( dolar.fecha ) >= minDate ) //filtro por fecha
+    ? data.filter((dolar) => new Date(dolar.fecha) >= fechaMin)
     : [];
 
-  const reducedData = filteredData.filter( ( _, index ) => index % 32 === 0 ); //limito los dias a 32 dias
+  // datos cada 32 dias
+  const reducedData = filteredData.filter((_, index) => index % 32 === 0);
 
-  // que siempre me retorne el dato que toma el grafico
+  // creo arrays
+  const labels = reducedData.map((dolar) => new Date(dolar.fecha).toLocaleDateString());
+  const datasets = reducedData.map((dolar) => dolar.venta);
+
+  
   const graphData: DataGraph = {
-    labels: reducedData.map( ( dolar ) => new Date( dolar.fecha ).toLocaleDateString() ),
+    labels: labels, // fechas
     datasets: [
       {
-        data: reducedData.map( ( dolar ) => dolar.venta ),
+        data: datasets, // datos a mostrar
       },
     ],
   };
-
+  
   return graphData;
 };

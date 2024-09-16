@@ -30,7 +30,7 @@ export const GraphDolar = ( { data }: DataProps ) => {
 
         <LineChart
           data={ data }
-          width={ screenWidth * 8 } // Asegúrate de que el ancho del gráfico sea mayor que el ancho de la pantalla para habilitar el scroll
+          width={ screenWidth * 8 } // el ancoh tiene ser mayor que la screen para scrollearrr
           height={ 220 }
           chartConfig={ {
             backgroundColor: isDark ? darkColors.containers : lightColors.containers,
@@ -48,6 +48,11 @@ export const GraphDolar = ( { data }: DataProps ) => {
             marginVertical: 8,
             borderRadius: 16,
           } }
+          renderDotContent={ ( { x, y, index } ) => (
+            <Text key={ index } style={ [ styles.dotLabel, { left: x, top: y-20 } ] }>
+              { data.datasets[ 0 ].data[ index ] }
+            </Text>
+          ) }
         />
 
       </View>
@@ -60,8 +65,13 @@ const styles = StyleSheet.create( {
     flex: 1,
   },
   chartContainer: {
-    width: screenWidth * 8, // Adjust container width for horizontal scroll
+    width: screenWidth * 8, //mismo ancho
     position: 'relative',
+  },
+  dotLabel: {
+    position: 'absolute',
+    fontSize: 10,
+    color: '#000',     
   },
 
 } );

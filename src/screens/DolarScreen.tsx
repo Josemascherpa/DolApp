@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   textSeparator:{
     fontWeight:"bold",
     fontSize:20,
-    alignSelf:"center"
+    alignSelf:"center",
+    
   }
 })
