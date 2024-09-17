@@ -72,7 +72,7 @@ export const HomeScreen = () => {
               ) }
             />
             <View style={ { alignItems: "center", paddingTop: 2, flexDirection: "row", justifyContent: "center" } }>
-              <Text>
+              <Text style={{color:isDark?darkColors.text:lightColors.text}}>
                 Datos obtenidos de{ " " }
                 <Text style={ { fontWeight: 'bold' } }>DolarApi.com</Text>
               </Text>

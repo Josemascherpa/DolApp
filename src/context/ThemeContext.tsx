@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, } from 'react';
+import React, { createContext, PropsWithChildren, useEffect, useState, } from 'react';
 
 import {
   NavigationContainer,
@@ -46,11 +46,27 @@ export const ThemeContext = createContext( {
 } );
 
 
-export const ThemeContextProvider = ( { children }: PropsWithChildren ) => {
-  const colorScheme = useColorScheme();  
-  const isDarkTheme = colorScheme === "dark";
 
-  const theme = isDarkTheme ? CombinedDarkTheme : CombinedDefaultTheme;
+
+export const ThemeContextProvider = ( { children }: PropsWithChildren ) => {
+  
+  const colorScheme = useColorScheme();    
+  const [isDarkTheme,setIsDarkTheme] = useState(true);
+  const [theme,setTheme]=useState(CombinedDefaultTheme)
+
+  useEffect(() => {
+    if(colorScheme==="dark"){
+      setTheme(CombinedDarkTheme);
+      setIsDarkTheme(true);
+    }else{
+      setTheme(CombinedDefaultTheme);
+      setIsDarkTheme(false);
+    }
+  }, [colorScheme])
+  
+
+  
+
   return (
     <PaperProvider theme={ theme }>
       <NavigationContainer theme={ theme }>
