@@ -1,8 +1,18 @@
 <div align="center">
   <h1>💰DolApp💵</h1> 
-Aplicación realizada con React Native y Typescript CLI, con la idea de hacer consultas y poder ofrecer el valor del dolar y su historial de años anteriores al actual a traves de un grafico.
+Esta aplicación, desarrollada con React Native y TypeScript CLI, permite realizar consultas sobre el valor del dólar y consultar su historial de años anteriores a través de gráficos interactivos.   
 </div>
+<br></br>
+<div align="center">
+<b>Caracteristicas:</b>  
+</div>
+<div align="left">
+  <li>Consulta de Dólar: Ofrece el valor actual del dólar y datos históricos. </li>
+  <li>Visualización de Datos: Muestra un gráfico con el historial del dólar a lo largo de los años.</li>
+  <li>Navegación: Utiliza React Navigation con una combinación de Drawer y Stack para una experiencia de usuario fluida.</li>
+  <li>Temas Adaptativos: Implementa useContext para gestionar el tema de la aplicación, adaptándose automáticamente al tema predefinido del sistema del usuario.</li>
 <br>
+  </div>
 <div align="center">
   <img src="https://img.shields.io/badge/React%20Native-blue?style=flat&logo=react&logoColor=white">
   <img src="https://img.shields.io/badge/TypeScript-F7DF1E?style=flat&logo=typescript&logoColor=white">  
@@ -19,13 +29,21 @@ Aplicación realizada con React Native y Typescript CLI, con la idea de hacer co
   <li>React Native Vector Icons: utilizada para mostrar iconos.</li>
   </ul>            
 
+<div align="center">
   <b>:camera:Imagenes::camera:</b>
+</div>
   
-  <img src="app/src/assets/images/DarkAndLight.jpg" width="500" height="500"/>
+  <img src="src/assets/images/DarkAndLight.jpg" width="600" height="500"/>
+  <img src="src/assets/images/GraphDark.jpg" width="600" height="500"/>
+  <img src="src/assets/images/GraphLight.jpg" width="600" height="500"/>
 
-  <b>Videos</b>
+<div align="center">
+  <b>📹Videos📹</b>
+</div>
 
   [Navegación](https://youtube.com/shorts/SR_zSos2lDs)
+  
+  [DarkAndLight](https://youtu.be/_hHPemqo3rk)
   
   
 
