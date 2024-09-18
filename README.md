@@ -2,7 +2,7 @@
   <h1>💰DolApp💵</h1> 
 Esta aplicación, desarrollada con React Native y TypeScript CLI, permite realizar consultas sobre el valor del dólar y consultar su historial de años anteriores a través de gráficos interactivos.   
 </div>
-<br></br>
+
 <div align="center">
 <b>Caracteristicas:</b>  
 </div>
