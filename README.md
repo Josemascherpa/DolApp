@@ -10,7 +10,7 @@ Esta aplicación, desarrollada con React Native y TypeScript CLI, permite realiz
   <li>Consulta de Dólar: Ofrece el valor actual del dólar y datos históricos. </li>
   <li>Visualización de Datos: Muestra un gráfico con el historial del dólar a lo largo de los años.</li>
   <li>Navegación: Utiliza React Navigation con una combinación de Drawer y Stack para una experiencia de usuario fluida.</li>
-  <li>Temas Adaptativos: Implementa useContext para gestionar el tema de la aplicación, adaptándose automáticamente al tema predefinido del sistema del usuario.</li>
+  <li>Tema: Implementa useContext para gestionar el tema de la aplicación, adaptándose automáticamente al tema predefinido del sistema del usuario.</li>
 <br>
   </div>
 <div align="center">
