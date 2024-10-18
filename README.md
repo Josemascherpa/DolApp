@@ -24,7 +24,7 @@ Esta aplicación, desarrollada con React Native y TypeScript CLI, permite realiz
   <b>:books: Librerias:</b>  
   <ul><li>Axios: utilizada para hacer consultas a la API.<br></li>
   <li>TanStackQuery: utilizada para manejar los datos de la consulta de una forma mas optimizada aprovechando el uso del cache.</li>
-  <li>React Native Paper: utilizada para hacer uso de sus componentes y navigators.</li>
+  <li>React Native Paper: utilizada para hacer uso de sus componentes.</li>
   <li>React Native Chart-Kit: utilizada para mostrar los datos de años anteriores hasta el actual en un grafico con posibilidad de scroll.</li>
   <li>React Native Vector Icons: utilizada para mostrar iconos.</li>
   </ul>            
